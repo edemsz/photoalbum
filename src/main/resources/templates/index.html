@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .photo {
+            max-width: 300px;
+            max-height: 300px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Photo Album</h1>
+
+<h2>Upload a Picture</h2>
+<form id="uploadForm" action="/photos" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept="image/*">
+    <button type="submit">Upload</button>
+</form>
+
+<h2>Uploaded Pictures</h2>
+<table>
+    <tr>
+        <th>Image</th>
+        <th>Title</th>
+        <th>Creation Date</th>
+    </tr>
+    <div id="pictures">
+        <tr th:each="photo : ${photos}">
+            <td>
+                <img class="photo" th:src="@{'/photos/' + ${photo.title}}" th:alt="${photo.title}">
+            </td>
+            <td th:text="${photo.title}"></td>
+            <td th:text="${photo.creationDate}"></td>
+        </tr>
+    </div>
+</table>
+
+</body>
+</html>

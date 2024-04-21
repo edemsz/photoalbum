@@ -15,7 +15,6 @@ class Photo {
 
     var creationDate: LocalDateTime = LocalDateTime.now()
 
-    //random 40 character string from hexa characters
     var title: String = (1..40).map { (('0'..'9') + ('a'..'f')).random() }.joinToString("")
 
     lateinit var filename: String

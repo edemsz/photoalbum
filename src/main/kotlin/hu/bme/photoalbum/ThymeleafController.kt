@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestParam
 
 
 @Controller
@@ -13,10 +14,17 @@ class ThymeleafController {
     lateinit var photoRepo: PhotoRepo
 
     @GetMapping("/home")
-    fun index(model: Model): String {
+    fun index(model: Model, @RequestParam(defaultValue = "creation") sortBy: String): String {
         val photos = photoRepo.findAll()
 
-        model.addAttribute("photos", photos)
+        val sortedPhotos = when (sortBy) {
+            "title" -> photos.sortedBy { it.title }
+            else -> photos.sortedBy { it.creationDate }
+        }
+
+        model.addAttribute("photos", sortedPhotos)
+
+        model.addAttribute("sortByCreation", sortBy == "creation")
 
         return "index"
     }

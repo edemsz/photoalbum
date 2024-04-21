@@ -31,6 +31,9 @@
 
 <h1>Photo Album</h1>
 
+<button th:if="${sortByCreation==true}" onclick="window.location.href='/home?sortBy=title';">Sort by Title</button>
+<button th:if="${sortByCreation==false}" onclick="window.location.href='/home?sortBy=creation';">Sort by Creation Date</button>
+
 <h2>Upload a Picture</h2>
 <form id="uploadForm" action="/photos" method="post" enctype="multipart/form-data">
     <input type="file" name="file" accept="image/*">
@@ -62,6 +65,8 @@
     </div>
     </tbody>
 </table>
+
+
 
 U7KC0P
 </body>

@@ -17,6 +17,12 @@
         <java.version>17</java.version>
         <kotlin.version>1.8.10</kotlin.version>
     </properties>
+    <profiles>
+        <profile>
+            <id>openshift</id>
+        </profile>
+
+    </profiles>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

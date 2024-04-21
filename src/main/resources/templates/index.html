@@ -6,17 +6,24 @@
             max-width: 300px;
             max-height: 300px;
         }
+
         table {
             border-collapse: collapse;
             width: 100%;
         }
+
         th, td {
             border: 1px solid #dddddd;
             text-align: left;
             padding: 8px;
         }
+
         th {
             background-color: #f2f2f2;
+        }
+
+        tr.clickable {
+            cursor: pointer;
         }
     </style>
 </head>
@@ -32,20 +39,28 @@
 
 <h2>Uploaded Pictures</h2>
 <table>
+    <thead>
     <tr>
         <th>Image</th>
         <th>Title</th>
         <th>Creation Date</th>
     </tr>
+    </thead>
+    <tbody>
     <div id="pictures">
         <tr th:each="photo : ${photos}">
             <td>
-                <img class="photo" th:src="@{'/photos/' + ${photo.title}}" th:alt="${photo.title}">
+                <a th:href="@{'/photo/' + ${photo.id}}">
+
+                    <img class="photo" th:src="@{'/photos/' + ${photo.title}}" th:alt="${photo.title}">
+                </a>
+
             </td>
             <td th:text="${photo.title}"></td>
-            <td th:text="${photo.creationDate}"></td>
+            <td th:text="${#temporals.format(photo.creationDate, 'yyyy-MM-dd HH:mm')}"></td>
         </tr>
     </div>
+    </tbody>
 </table>
 
 </body>

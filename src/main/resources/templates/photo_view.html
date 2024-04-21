@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <style>
+    .photo {
+      max-width: 500px;
+      max-height: 500px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>View Photo</h1>
+
+<div th:if="${photo != null}">
+  <img class="photo" th:src="@{'/photos/' + ${photo.title}}" th:alt="${photo.title}">
+  <p>Title: <span th:text="${photo.title}"></span></p>
+  <p>Creation Date: <span th:text="${#temporals.format(photo.creationDate, 'yyyy-MM-dd HH:mm')}"></span></p>
+</div>
+
+<form th:action="@{'/photos/' + ${photo.id} + '/delete'}" method="post">
+  <button type="submit">Delete</button>
+</form>
+
+<a href="/home">Back to Home</a>
+
+</body>
+</html>

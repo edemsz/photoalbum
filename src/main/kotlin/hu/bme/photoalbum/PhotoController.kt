@@ -103,6 +103,21 @@ class PhotoController {
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
+    @PostMapping("/photos/{id}/delete")
+    fun deletePhoto(@PathVariable("id") id: Long): RedirectView {
+        val photo = photoRepo.findById(id)
+        if (photo.isPresent) {
+            val filePath = Paths.get(UPLOAD_DIR).resolve(photo.get().filename)
+            try {
+                Files.deleteIfExists(filePath)
+                photoRepo.deleteById(id)
+                logger.info("Photo deleted: ${photo.get().title}")
+            } catch (ex: IOException) {
+                ex.printStackTrace()
+            }
+        }
+        return RedirectView("/home")
+    }
 
 
 }
